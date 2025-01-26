@@ -71,6 +71,10 @@ function TranslationManager() {
     setTranslations((prev) => [...prev, newTranslation]);
   };
 
+  const deleteTranslation = (index) => {
+    setTranslations((prev) => prev.filter((_, i) => i !== index));
+  };
+
   return (
     <div>
       <div className="header">
@@ -88,10 +92,11 @@ function TranslationManager() {
               <th>English</th>
               <th>Hebrew</th>
               <th>Key</th>
+              <th style={{ width: "100px" }}>Actions</th>
             </tr>
           </thead>
           <tbody>
-            {translations.map((item) => (
+            {translations.map((item, index) => (
               <tr key={item.key}>
                 <td>
                   <input
@@ -120,10 +125,14 @@ function TranslationManager() {
                     }
                   />
                 </td>
+                <td>
+                  <button onClick={() => deleteTranslation(index)}>Delete</button>
+                </td> {/* Delete button */}
               </tr>
             ))}
           </tbody>
         </table>
+
       </div>
     </div>
   );
