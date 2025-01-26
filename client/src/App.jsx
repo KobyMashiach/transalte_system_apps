@@ -1,3 +1,5 @@
+import './App.css';
+
 import React, { useState } from "react";
 import axios from "axios";
 
@@ -11,8 +13,8 @@ function TranslationManager() {
       const directoryHandle = await window.showDirectoryPicker();
 
       if (directoryHandle) {
-        setFolderPath(directoryHandle.name);
         const fullPath = `C:\\Users\\kobko\\Desktop\\Projects\\${directoryHandle.name}`;
+        setFolderPath(fullPath);
         console.log(fullPath);
 
         loadTranslations(fullPath)
@@ -59,53 +61,70 @@ function TranslationManager() {
     }
   };
 
+  const addTranslation = () => {
+    const newTranslation = {
+      key: `key_${translations.length + 1}`, // Default key value
+      english: "", // Default English value
+      hebrew: "", // Default Hebrew value
+    };
+
+    setTranslations((prev) => [...prev, newTranslation]);
+  };
+
   return (
     <div>
-      <h1>Translation Manager</h1>
-      <button onClick={handleFolderSelection}>Select Project Folder</button>
-      <table border="1">
-        <thead>
-          <tr>
-            <th>English</th>
-            <th>Hebrew</th>
-            <th>Key</th>
-          </tr>
-        </thead>
-        <tbody>
-          {translations.map((item) => (
-            <tr key={item.key}>
-              <td>
-                <input
-                  type="text"
-                  value={editedTranslations[item.key]?.english || item.english}
-                  onChange={(e) =>
-                    handleInputChange(item.key, "english", e.target.value)
-                  }
-                />
-              </td>
-              <td>
-                <input
-                  type="text"
-                  value={editedTranslations[item.key]?.hebrew || item.hebrew}
-                  onChange={(e) =>
-                    handleInputChange(item.key, "hebrew", e.target.value)
-                  }
-                />
-              </td>
-              <td>
-                <input
-                  type="text"
-                  value={editedTranslations[item.key]?.key || item.key}
-                  onChange={(e) =>
-                    handleInputChange(item.key, "key", e.target.value)
-                  }
-                />
-              </td>
+      <div className="header">
+        <h1>Translation Manager</h1>
+        <div className="button-container">
+          <button onClick={handleFolderSelection}>Select Project Folder</button>
+          <button onClick={saveTranslations}>Save Translations</button>
+          <button onClick={addTranslation}>Add Value</button>
+        </div>
+      </div>
+      <div className="scrollable">
+        <table border="1">
+          <thead>
+            <tr>
+              <th>English</th>
+              <th>Hebrew</th>
+              <th>Key</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-      <button onClick={saveTranslations}>Save Translations</button>
+          </thead>
+          <tbody>
+            {translations.map((item) => (
+              <tr key={item.key}>
+                <td>
+                  <input
+                    type="text"
+                    value={editedTranslations[item.key]?.english || item.english}
+                    onChange={(e) =>
+                      handleInputChange(item.key, "english", e.target.value)
+                    }
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    value={editedTranslations[item.key]?.hebrew || item.hebrew}
+                    onChange={(e) =>
+                      handleInputChange(item.key, "hebrew", e.target.value)
+                    }
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    value={editedTranslations[item.key]?.key || item.key}
+                    onChange={(e) =>
+                      handleInputChange(item.key, "key", e.target.value)
+                    }
+                  />
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }
