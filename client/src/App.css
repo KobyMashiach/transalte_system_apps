@@ -32,8 +32,6 @@ div {
 /* Button styles */
 button {
   padding: 10px 20px;
-  margin: 20px 10px;
-  /* Add space between buttons */
   font-size: 16px;
   cursor: pointer;
   background-color: #007bff;
@@ -89,6 +87,5 @@ td input {
 /* Scrollable table */
 .scrollable {
   max-height: 500px;
-  /* Adjust height as needed */
   overflow-y: auto;
 }

@@ -63,9 +63,9 @@ function TranslationManager() {
 
   const addTranslation = () => {
     const newTranslation = {
-      key: `key_${translations.length + 1}`, // Default key value
-      english: "", // Default English value
-      hebrew: "", // Default Hebrew value
+      key: `key_${translations.length + 1}`,
+      english: "",
+      hebrew: "",
     };
 
     setTranslations((prev) => [...prev, newTranslation]);
