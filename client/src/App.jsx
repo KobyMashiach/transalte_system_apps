@@ -89,15 +89,24 @@ function TranslationManager() {
         <table border="1">
           <thead>
             <tr>
+              <th>Key</th>
               <th>English</th>
               <th>Hebrew</th>
-              <th>Key</th>
               <th style={{ width: "100px" }}>Actions</th>
             </tr>
           </thead>
           <tbody>
             {translations.map((item, index) => (
               <tr key={item.key}>
+                <td>
+                  <input
+                    type="text"
+                    value={editedTranslations[item.key]?.key || item.key}
+                    onChange={(e) =>
+                      handleInputChange(item.key, "key", e.target.value)
+                    }
+                  />
+                </td>
                 <td>
                   <input
                     type="text"
@@ -117,23 +126,14 @@ function TranslationManager() {
                   />
                 </td>
                 <td>
-                  <input
-                    type="text"
-                    value={editedTranslations[item.key]?.key || item.key}
-                    onChange={(e) =>
-                      handleInputChange(item.key, "key", e.target.value)
-                    }
-                  />
-                </td>
-                <td>
                   <button onClick={() => deleteTranslation(index)}>Delete</button>
-                </td> {/* Delete button */}
+                </td>
               </tr>
             ))}
           </tbody>
         </table>
-
       </div>
+
     </div>
   );
 }
